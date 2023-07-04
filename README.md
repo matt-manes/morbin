@@ -10,10 +10,26 @@ Install with:
 pip install morbin
 </pre>
 
-
-
 ## Usage
 
-<pre>
+The easiest way to start is to use the bundled template generator.<br>
+The only argument it requires is the name of the program you want to create bindings for.
 
-</pre>
+As an example we'll do Git.
+
+Running `morbin git` in your terminal will produce a file named `git.py` in your current directory.<br>
+It should look like this:
+![](/imgs/template.png)
+Additional functions should be built on top of this `git` function and return its output.<br>
+
+After adding functions for `git add`, `git commit`, and `git log` the class should look like this:
+![](/imgs/functions.png)
+
+The `Output` object each function returns is a `dataclass` with three fields: `return_code`, `stdout`, and `stderr`.<br>
+![](/imgs/output.png)
+
+By default `stdout` and `stderr` are not captured.<br>
+They are sent to wherever they normally would be and the `stdout` and `stderr` fields of the `Output` object will be empty strings.<br>
+`stdout` and `stderr` can be captured by either setting the `capture_output` property of a class instance to `True` 
+or by using the `capturing_output` context manager as demonstrated below:
+![](/imgs/use.png)
