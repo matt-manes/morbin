@@ -7,7 +7,7 @@ name = "morbin"
 description = "Base class for creating modules that are bindings for command line tools."
 version = "0.0.0"
 requires-python = ">=3.10"
-dependencies = []
+dependencies = ["pathier", "pytest"]
 readme = "README.md"
 keywords = ["cli", "terminal", "binding", "bindings", "morbius", "morbin", "morph"]
 classifiers = ["Programming Language :: Python :: 3", "License :: OSI Approved :: MIT License", "Operating System :: OS Independent"]

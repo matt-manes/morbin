@@ -1,8 +1,9 @@
+import argparse
 import shlex
 import subprocess
 from contextlib import contextmanager
 from dataclasses import dataclass
-import argparse
+
 from pathier import Pathier
 
 root = Pathier(__file__).parent
