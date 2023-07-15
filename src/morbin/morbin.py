@@ -5,6 +5,7 @@ from contextlib import contextmanager
 from dataclasses import dataclass
 
 from pathier import Pathier
+from typing_extensions import Self
 
 root = Pathier(__file__).parent
 
@@ -14,13 +15,20 @@ class Output:
     """Dataclass representing the output of a terminal command.
 
     #### Fields:
-    * `return_code`
-    * `stdout`
-    * `stderr`"""
+    * `return_code: list[int]`
+    * `stdout: str`
+    * `stderr: str`"""
 
-    return_code: int
+    return_code: list[int]
     stdout: str = ""
     stderr: str = ""
+
+    def __add__(self, output: Self) -> Self:
+        return Output(
+            self.return_code + output.return_code,
+            self.stdout + output.stdout,
+            self.stderr + output.stderr,
+        )
 
 
 class Morbin:
@@ -81,10 +89,10 @@ class Morbin:
                 text=True,
                 shell=self.shell,
             )
-            return Output(output.returncode, output.stdout, output.stderr)
+            return Output([output.returncode], output.stdout, output.stderr)
         else:
             output = subprocess.run(command, shell=self.shell)
-            return Output(output.returncode)
+            return Output([output.returncode])
 
 
 def get_args() -> argparse.Namespace:
