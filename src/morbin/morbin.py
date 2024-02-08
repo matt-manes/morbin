@@ -24,7 +24,7 @@ class Output:
     stderr: str = ""
 
     def __add__(self, output: Self) -> Self:
-        return Output(
+        return self.__class__(
             self.return_code + output.return_code,
             self.stdout + output.stdout,
             self.stderr + output.stderr,
@@ -53,7 +53,8 @@ class Morbin:
     @property
     def capture_output(self) -> bool:
         """If `True`, member functions will return the generated `stdout` as a string,
-        otherwise they return the command's exit code as a string (so my type checker doesn't throw a fit about ints.)."""
+        otherwise they return the command's exit code as a string (so my type checker doesn't throw a fit about ints.).
+        """
         return self._capture_output
 
     @capture_output.setter
@@ -73,7 +74,8 @@ class Morbin:
     def capturing_output(self):
         """Ensures `self.capture_output` is `True` while within the context.
 
-        Upon exiting the context, `self.capture_output` will be set back to whatever it was when the context was entered."""
+        Upon exiting the context, `self.capture_output` will be set back to whatever it was when the context was entered.
+        """
         original_state = self.capture_output
         self.capture_output = True
         yield self
