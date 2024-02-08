@@ -31,10 +31,10 @@
         <h2>API Documentation</h2>
             <ul class="memberlist">
             <li>
-                    <a class="class" href="#Program">Program</a>
+                    <a class="class" href="#Name">Name</a>
                             <ul class="memberlist">
                         <li>
-                                <a class="function" href="#Program.program">program</a>
+                                <a class="variable" href="#Name.program">program</a>
                         </li>
                 </ul>
 
@@ -63,60 +63,69 @@
                         <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos">1</span></a><span class="kn">from</span> <span class="nn">morbin</span> <span class="kn">import</span> <span class="n">Morbin</span><span class="p">,</span> <span class="n">Output</span>
 </span><span id="L-2"><a href="#L-2"><span class="linenos">2</span></a>
 </span><span id="L-3"><a href="#L-3"><span class="linenos">3</span></a>
-</span><span id="L-4"><a href="#L-4"><span class="linenos">4</span></a><span class="k">class</span> <span class="nc">Program</span><span class="p">(</span><span class="n">Morbin</span><span class="p">):</span>
-</span><span id="L-5"><a href="#L-5"><span class="linenos">5</span></a>    <span class="k">def</span> <span class="nf">program</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Output</span><span class="p">:</span>
-</span><span id="L-6"><a href="#L-6"><span class="linenos">6</span></a>        <span class="sd">&quot;&quot;&quot;Base function for executing `program` commands.</span>
-</span><span id="L-7"><a href="#L-7"><span class="linenos">7</span></a>
-</span><span id="L-8"><a href="#L-8"><span class="linenos">8</span></a><span class="sd">        Higher level commands should be built on this function and return its output.&quot;&quot;&quot;</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos">9</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;program&quot;</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+</span><span id="L-4"><a href="#L-4"><span class="linenos">4</span></a><span class="k">class</span> <span class="nc">Name</span><span class="p">(</span><span class="n">Morbin</span><span class="p">):</span>
+</span><span id="L-5"><a href="#L-5"><span class="linenos">5</span></a>    <span class="nd">@property</span>
+</span><span id="L-6"><a href="#L-6"><span class="linenos">6</span></a>    <span class="k">def</span> <span class="nf">program</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos">7</span></a>        <span class="k">return</span> <span class="s2">&quot;name&quot;</span>
 </span></pre></div>
 
 
             </section>
-                <section id="Program">
-                            <input id="Program-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+                <section id="Name">
+                            <input id="Name-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr class">
             
     <span class="def">class</span>
-    <span class="name">Program</span><wbr>(<span class="base"><a href="morbin.html#Morbin">morbin.morbin.Morbin</a></span>):
+    <span class="name">Name</span><wbr>(<span class="base"><a href="morbin.html#Morbin">morbin.morbin.Morbin</a></span>):
 
-                <label class="view-source-button" for="Program-view-source"><span>View Source</span></label>
+                <label class="view-source-button" for="Name-view-source"><span>View Source</span></label>
 
     </div>
-    <a class="headerlink" href="#Program"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Program-5"><a href="#Program-5"><span class="linenos"> 5</span></a><span class="k">class</span> <span class="nc">Program</span><span class="p">(</span><span class="n">Morbin</span><span class="p">):</span>
-</span><span id="Program-6"><a href="#Program-6"><span class="linenos"> 6</span></a>    <span class="k">def</span> <span class="nf">program</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Output</span><span class="p">:</span>
-</span><span id="Program-7"><a href="#Program-7"><span class="linenos"> 7</span></a>        <span class="sd">&quot;&quot;&quot;Base function for executing `program` commands.</span>
-</span><span id="Program-8"><a href="#Program-8"><span class="linenos"> 8</span></a>
-</span><span id="Program-9"><a href="#Program-9"><span class="linenos"> 9</span></a><span class="sd">        Higher level commands should be built on this function and return its output.&quot;&quot;&quot;</span>
-</span><span id="Program-10"><a href="#Program-10"><span class="linenos">10</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;program&quot;</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+    <a class="headerlink" href="#Name"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Name-5"><a href="#Name-5"><span class="linenos">5</span></a><span class="k">class</span> <span class="nc">Name</span><span class="p">(</span><span class="n">Morbin</span><span class="p">):</span>
+</span><span id="Name-6"><a href="#Name-6"><span class="linenos">6</span></a>    <span class="nd">@property</span>
+</span><span id="Name-7"><a href="#Name-7"><span class="linenos">7</span></a>    <span class="k">def</span> <span class="nf">program</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="Name-8"><a href="#Name-8"><span class="linenos">8</span></a>        <span class="k">return</span> <span class="s2">&quot;name&quot;</span>
 </span></pre></div>
 
 
+            <div class="docstring"><p>Base class for creating python bindings for cli programs.</p>
+
+<p>At a minimum, any subclass must implement a <code><a href="#Name.program">program</a></code> property that returns the name used to invoke the cli.</p>
+
+<p>The <code><a href="#Name.run">run</a></code> function can then be used to build bindings.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Pip</span><span class="p">(</span><span class="n">Morbin</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="nd">@property</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">def</span> <span class="nf">program</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">str</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="k">return</span> <span class="s1">&#39;pip&#39;</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">def</span> <span class="nf">install</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">package</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">Output</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;install&quot;</span><span class="p">,</span> <span class="n">package</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">def</span> <span class="nf">upgrade</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">package</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">Output</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="n">package</span><span class="p">,</span> <span class="s2">&quot;--upgrade&quot;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">def</span> <span class="nf">install_requirements</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">Output</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="s2">&quot;-r&quot;</span><span class="p">,</span> <span class="s2">&quot;requirements.txt&quot;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pip</span> <span class="o">=</span> <span class="n">Pip</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pip</span><span class="o">.</span><span class="n">upgrade</span><span class="p">(</span><span class="s2">&quot;morbin&quot;</span><span class="p">)</span>
+</code></pre>
+</div>
+</div>
+
+
+                            <div id="Name.program" class="classattr">
+                                <div class="attr variable">
+            <span class="name">program</span><span class="annotation">: str</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Name.program"></a>
     
-
-                            <div id="Program.program" class="classattr">
-                                        <input id="Program.program-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr function">
-            
-        <span class="def">def</span>
-        <span class="name">program</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">args</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span></span><span class="return-annotation">) -> <span class="n"><a href="morbin.html#Output">morbin.morbin.Output</a></span>:</span></span>
-
-                <label class="view-source-button" for="Program.program-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#Program.program"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Program.program-6"><a href="#Program.program-6"><span class="linenos"> 6</span></a>    <span class="k">def</span> <span class="nf">program</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Output</span><span class="p">:</span>
-</span><span id="Program.program-7"><a href="#Program.program-7"><span class="linenos"> 7</span></a>        <span class="sd">&quot;&quot;&quot;Base function for executing `program` commands.</span>
-</span><span id="Program.program-8"><a href="#Program.program-8"><span class="linenos"> 8</span></a>
-</span><span id="Program.program-9"><a href="#Program.program-9"><span class="linenos"> 9</span></a><span class="sd">        Higher level commands should be built on this function and return its output.&quot;&quot;&quot;</span>
-</span><span id="Program.program-10"><a href="#Program.program-10"><span class="linenos">10</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;program&quot;</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
-</span></pre></div>
-
-
-            <div class="docstring"><p>Base function for executing <code><a href="#Program.program">program</a></code> commands.</p>
-
-<p>Higher level commands should be built on this function and return its output.</p>
+            <div class="docstring"><p>The name used to invoke the program from the command line.</p>
 </div>
 
 
@@ -125,11 +134,11 @@
                                 <h5>Inherited Members</h5>
                                 <dl>
                                     <div><dt><a href="morbin.html#Morbin">morbin.morbin.Morbin</a></dt>
-                                <dd id="Program.__init__" class="function"><a href="morbin.html#Morbin.__init__">Morbin</a></dd>
-                <dd id="Program.capture_output" class="variable"><a href="morbin.html#Morbin.capture_output">capture_output</a></dd>
-                <dd id="Program.shell" class="variable"><a href="morbin.html#Morbin.shell">shell</a></dd>
-                <dd id="Program.capturing_output" class="function"><a href="morbin.html#Morbin.capturing_output">capturing_output</a></dd>
-                <dd id="Program.execute" class="function"><a href="morbin.html#Morbin.execute">execute</a></dd>
+                                <dd id="Name.__init__" class="function"><a href="morbin.html#Morbin.__init__">Morbin</a></dd>
+                <dd id="Name.capture_output" class="variable"><a href="morbin.html#Morbin.capture_output">capture_output</a></dd>
+                <dd id="Name.shell" class="variable"><a href="morbin.html#Morbin.shell">shell</a></dd>
+                <dd id="Name.capturing_output" class="function"><a href="morbin.html#Morbin.capturing_output">capturing_output</a></dd>
+                <dd id="Name.run" class="function"><a href="morbin.html#Morbin.run">run</a></dd>
 
             </div>
                                 </dl>
