@@ -20,8 +20,8 @@ class Output:
     * `stderr: str`"""
 
     return_code: list[int]
-    stderr: str = ""
     stdout: str = ""
+    stderr: str = ""
 
     def __add__(self, output: Self) -> Self:
         return self.__class__(
