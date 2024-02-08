@@ -20,8 +20,8 @@ class Output:
     * `stderr: str`"""
 
     return_code: list[int]
-    stdout: str = ""
     stderr: str = ""
+    stdout: str = ""
 
     def __add__(self, output: Self) -> Self:
         return self.__class__(
@@ -62,6 +62,11 @@ class Morbin:
         self._capture_output = should_capture
 
     @property
+    def program(self) -> str:
+        """The name used to invoke the program from the command line."""
+        raise NotImplementedError
+
+    @property
     def shell(self) -> bool:
         """If `True`, commands will be executed in the system shell."""
         return self._shell
@@ -81,8 +86,13 @@ class Morbin:
         yield self
         self.capture_output = original_state
 
-    def execute(self, program: str, args: str) -> Output:
-        command = [program] + shlex.split(args)
+    def run(self, *args: str) -> Output:
+        """Run this program with any number of args.
+
+        Returns an `Output` object."""
+        command = [self.program]
+        for arg in args:
+            command.extend(shlex.split(arg))
         if self.capture_output:
             output = subprocess.run(
                 command,
@@ -99,14 +109,12 @@ class Morbin:
 
 def get_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
-
     parser.add_argument(
         "name",
         type=str,
-        help=""" The program name to create a template subclass of Morbin for. """,
+        help=" The program name to create a template subclass of Morbin for. ",
     )
     args = parser.parse_args()
-
     return args
 
 
@@ -114,8 +122,8 @@ def main(args: argparse.Namespace | None = None):
     if not args:
         args = get_args()
     template = (root / "template.py").read_text()
-    template = template.replace("Program", args.name.capitalize()).replace(
-        "program", args.name
+    template = template.replace("Name", args.name.capitalize()).replace(
+        "name", args.name
     )
     (Pathier.cwd() / f"{args.name}.py").write_text(template)
 
