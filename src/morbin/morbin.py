@@ -32,6 +32,29 @@ class Output:
 
 
 class Morbin:
+    """Base class for creating python bindings for cli programs.
+
+    At a minimum, any subclass must implement a `program` property that returns the name used to invoke the cli.
+
+    The `run` function can then be used to build bindings.
+
+    >>> class Pip(Morbin):
+    >>>     @property
+    >>>     def program(self)->str:
+    >>>         return 'pip'
+    >>>
+    >>>     def install(self, package:str, *args:str)->Output:
+    >>>         return self.run("install", package, *args)
+    >>>
+    >>>     def upgrade(self, package:str)->Output:
+    >>>         return self.install(package, "--upgrade")
+    >>>
+    >>>     def install_requirements(self)->Output:
+    >>>         return self.install("-r", "requirements.txt")
+    >>>
+    >>> pip = Pip()
+    >>> pip.upgrade("morbin")"""
+
     def __init__(self, capture_output: bool = False, shell: bool = False):
         """Command bindings should return an `Output` object.
 
