@@ -18,18 +18,44 @@
         <input id="togglestate" type="checkbox" aria-hidden="true" tabindex="-1">
         <div>
 
-            <input type="search" placeholder="Search..." role="searchbox" aria-label="search"
-                   pattern=".+" required>
 
 
-        <h2>Submodules</h2>
-        <ul>
-                <li><a href="morbin/morbin.html">morbin</a></li>
-                <li><a href="morbin/template.html">template</a></li>
-        </ul>
 
         <h2>API Documentation</h2>
             <ul class="memberlist">
+            <li>
+                    <a class="class" href="#Morbin">Morbin</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#Morbin.__init__">Morbin</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Morbin.capture_output">capture_output</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Morbin.shell">shell</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Morbin.program">program</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Morbin.capturing_output">capturing_output</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Morbin.run">run</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#Output">Output</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#Output.__init__">Output</a>
+                        </li>
+                </ul>
+
+            </li>
     </ul>
 
 
@@ -53,192 +79,369 @@ morbin    </h1>
 
                         <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos">1</span></a><span class="kn">from</span> <span class="nn">.morbin</span> <span class="kn">import</span> <span class="n">Morbin</span><span class="p">,</span> <span class="n">Output</span>
 </span><span id="L-2"><a href="#L-2"><span class="linenos">2</span></a>
-</span><span id="L-3"><a href="#L-3"><span class="linenos">3</span></a><span class="n">__version__</span> <span class="o">=</span> <span class="s2">&quot;1.0.0&quot;</span>
+</span><span id="L-3"><a href="#L-3"><span class="linenos">3</span></a><span class="n">__version__</span> <span class="o">=</span> <span class="s2">&quot;1.0.1&quot;</span>
+</span><span id="L-4"><a href="#L-4"><span class="linenos">4</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Morbin&quot;</span><span class="p">,</span> <span class="s2">&quot;Output&quot;</span><span class="p">]</span>
 </span></pre></div>
 
 
             </section>
+                <section id="Morbin">
+                            <input id="Morbin-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">Morbin</span>:
+
+                <label class="view-source-button" for="Morbin-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Morbin"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Morbin-35"><a href="#Morbin-35"><span class="linenos"> 35</span></a><span class="k">class</span> <span class="nc">Morbin</span><span class="p">:</span>
+</span><span id="Morbin-36"><a href="#Morbin-36"><span class="linenos"> 36</span></a>    <span class="sd">&quot;&quot;&quot;Base class for creating python bindings for cli programs.</span>
+</span><span id="Morbin-37"><a href="#Morbin-37"><span class="linenos"> 37</span></a>
+</span><span id="Morbin-38"><a href="#Morbin-38"><span class="linenos"> 38</span></a><span class="sd">    At a minimum, any subclass must implement a `program` property that returns the name used to invoke the cli.</span>
+</span><span id="Morbin-39"><a href="#Morbin-39"><span class="linenos"> 39</span></a>
+</span><span id="Morbin-40"><a href="#Morbin-40"><span class="linenos"> 40</span></a><span class="sd">    The `run` function can then be used to build bindings.</span>
+</span><span id="Morbin-41"><a href="#Morbin-41"><span class="linenos"> 41</span></a>
+</span><span id="Morbin-42"><a href="#Morbin-42"><span class="linenos"> 42</span></a><span class="sd">    &gt;&gt;&gt; class Pip(Morbin):</span>
+</span><span id="Morbin-43"><a href="#Morbin-43"><span class="linenos"> 43</span></a><span class="sd">    &gt;&gt;&gt;     @property</span>
+</span><span id="Morbin-44"><a href="#Morbin-44"><span class="linenos"> 44</span></a><span class="sd">    &gt;&gt;&gt;     def program(self)-&gt;str:</span>
+</span><span id="Morbin-45"><a href="#Morbin-45"><span class="linenos"> 45</span></a><span class="sd">    &gt;&gt;&gt;         return &#39;pip&#39;</span>
+</span><span id="Morbin-46"><a href="#Morbin-46"><span class="linenos"> 46</span></a><span class="sd">    &gt;&gt;&gt;</span>
+</span><span id="Morbin-47"><a href="#Morbin-47"><span class="linenos"> 47</span></a><span class="sd">    &gt;&gt;&gt;     def install(self, package:str, *args:str)-&gt;Output:</span>
+</span><span id="Morbin-48"><a href="#Morbin-48"><span class="linenos"> 48</span></a><span class="sd">    &gt;&gt;&gt;         return self.run(&quot;install&quot;, package, *args)</span>
+</span><span id="Morbin-49"><a href="#Morbin-49"><span class="linenos"> 49</span></a><span class="sd">    &gt;&gt;&gt;</span>
+</span><span id="Morbin-50"><a href="#Morbin-50"><span class="linenos"> 50</span></a><span class="sd">    &gt;&gt;&gt;     def upgrade(self, package:str)-&gt;Output:</span>
+</span><span id="Morbin-51"><a href="#Morbin-51"><span class="linenos"> 51</span></a><span class="sd">    &gt;&gt;&gt;         return self.install(package, &quot;--upgrade&quot;)</span>
+</span><span id="Morbin-52"><a href="#Morbin-52"><span class="linenos"> 52</span></a><span class="sd">    &gt;&gt;&gt;</span>
+</span><span id="Morbin-53"><a href="#Morbin-53"><span class="linenos"> 53</span></a><span class="sd">    &gt;&gt;&gt;     def install_requirements(self)-&gt;Output:</span>
+</span><span id="Morbin-54"><a href="#Morbin-54"><span class="linenos"> 54</span></a><span class="sd">    &gt;&gt;&gt;         return self.install(&quot;-r&quot;, &quot;requirements.txt&quot;)</span>
+</span><span id="Morbin-55"><a href="#Morbin-55"><span class="linenos"> 55</span></a><span class="sd">    &gt;&gt;&gt;</span>
+</span><span id="Morbin-56"><a href="#Morbin-56"><span class="linenos"> 56</span></a><span class="sd">    &gt;&gt;&gt; pip = Pip()</span>
+</span><span id="Morbin-57"><a href="#Morbin-57"><span class="linenos"> 57</span></a><span class="sd">    &gt;&gt;&gt; pip.upgrade(&quot;morbin&quot;)&quot;&quot;&quot;</span>
+</span><span id="Morbin-58"><a href="#Morbin-58"><span class="linenos"> 58</span></a>
+</span><span id="Morbin-59"><a href="#Morbin-59"><span class="linenos"> 59</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">capture_output</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">shell</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+</span><span id="Morbin-60"><a href="#Morbin-60"><span class="linenos"> 60</span></a>        <span class="sd">&quot;&quot;&quot;Command bindings should return an `Output` object.</span>
+</span><span id="Morbin-61"><a href="#Morbin-61"><span class="linenos"> 61</span></a>
+</span><span id="Morbin-62"><a href="#Morbin-62"><span class="linenos"> 62</span></a><span class="sd">        If `capture_output` is `True` or the `capturing_output` context manager is used,</span>
+</span><span id="Morbin-63"><a href="#Morbin-63"><span class="linenos"> 63</span></a><span class="sd">        the command&#39;s output will be available via `Output.stdout` and `Output.stderr`.</span>
+</span><span id="Morbin-64"><a href="#Morbin-64"><span class="linenos"> 64</span></a>
+</span><span id="Morbin-65"><a href="#Morbin-65"><span class="linenos"> 65</span></a><span class="sd">        This property can be used to parse and use the command output or to simply execute commands &quot;silently&quot;.</span>
+</span><span id="Morbin-66"><a href="#Morbin-66"><span class="linenos"> 66</span></a>
+</span><span id="Morbin-67"><a href="#Morbin-67"><span class="linenos"> 67</span></a><span class="sd">        The return code will also be available via `Output.return_code`.</span>
+</span><span id="Morbin-68"><a href="#Morbin-68"><span class="linenos"> 68</span></a>
+</span><span id="Morbin-69"><a href="#Morbin-69"><span class="linenos"> 69</span></a><span class="sd">        If `shell` is `True`, commands will be executed in the system shell (necessary on Windows for builtin shell commands like `cd` and `dir`).</span>
+</span><span id="Morbin-70"><a href="#Morbin-70"><span class="linenos"> 70</span></a>
+</span><span id="Morbin-71"><a href="#Morbin-71"><span class="linenos"> 71</span></a><span class="sd">        [Security concerns using shell = True](https://docs.python.org/3/library/subprocess.html#security-considerations)</span>
+</span><span id="Morbin-72"><a href="#Morbin-72"><span class="linenos"> 72</span></a>
+</span><span id="Morbin-73"><a href="#Morbin-73"><span class="linenos"> 73</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Morbin-74"><a href="#Morbin-74"><span class="linenos"> 74</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">capture_output</span> <span class="o">=</span> <span class="n">capture_output</span>
+</span><span id="Morbin-75"><a href="#Morbin-75"><span class="linenos"> 75</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">shell</span> <span class="o">=</span> <span class="n">shell</span>
+</span><span id="Morbin-76"><a href="#Morbin-76"><span class="linenos"> 76</span></a>
+</span><span id="Morbin-77"><a href="#Morbin-77"><span class="linenos"> 77</span></a>    <span class="nd">@property</span>
+</span><span id="Morbin-78"><a href="#Morbin-78"><span class="linenos"> 78</span></a>    <span class="k">def</span> <span class="nf">capture_output</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span id="Morbin-79"><a href="#Morbin-79"><span class="linenos"> 79</span></a>        <span class="sd">&quot;&quot;&quot;If `True`, member functions will return the generated `stdout` as a string,</span>
+</span><span id="Morbin-80"><a href="#Morbin-80"><span class="linenos"> 80</span></a><span class="sd">        otherwise they return the command&#39;s exit code as a string (so my type checker doesn&#39;t throw a fit about ints.).</span>
+</span><span id="Morbin-81"><a href="#Morbin-81"><span class="linenos"> 81</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Morbin-82"><a href="#Morbin-82"><span class="linenos"> 82</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_capture_output</span>
+</span><span id="Morbin-83"><a href="#Morbin-83"><span class="linenos"> 83</span></a>
+</span><span id="Morbin-84"><a href="#Morbin-84"><span class="linenos"> 84</span></a>    <span class="nd">@capture_output</span><span class="o">.</span><span class="n">setter</span>
+</span><span id="Morbin-85"><a href="#Morbin-85"><span class="linenos"> 85</span></a>    <span class="k">def</span> <span class="nf">capture_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">should_capture</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+</span><span id="Morbin-86"><a href="#Morbin-86"><span class="linenos"> 86</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_capture_output</span> <span class="o">=</span> <span class="n">should_capture</span>
+</span><span id="Morbin-87"><a href="#Morbin-87"><span class="linenos"> 87</span></a>
+</span><span id="Morbin-88"><a href="#Morbin-88"><span class="linenos"> 88</span></a>    <span class="nd">@property</span>
+</span><span id="Morbin-89"><a href="#Morbin-89"><span class="linenos"> 89</span></a>    <span class="k">def</span> <span class="nf">program</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="Morbin-90"><a href="#Morbin-90"><span class="linenos"> 90</span></a>        <span class="sd">&quot;&quot;&quot;The name used to invoke the program from the command line.&quot;&quot;&quot;</span>
+</span><span id="Morbin-91"><a href="#Morbin-91"><span class="linenos"> 91</span></a>        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+</span><span id="Morbin-92"><a href="#Morbin-92"><span class="linenos"> 92</span></a>
+</span><span id="Morbin-93"><a href="#Morbin-93"><span class="linenos"> 93</span></a>    <span class="nd">@property</span>
+</span><span id="Morbin-94"><a href="#Morbin-94"><span class="linenos"> 94</span></a>    <span class="k">def</span> <span class="nf">shell</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span id="Morbin-95"><a href="#Morbin-95"><span class="linenos"> 95</span></a>        <span class="sd">&quot;&quot;&quot;If `True`, commands will be executed in the system shell.&quot;&quot;&quot;</span>
+</span><span id="Morbin-96"><a href="#Morbin-96"><span class="linenos"> 96</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shell</span>
+</span><span id="Morbin-97"><a href="#Morbin-97"><span class="linenos"> 97</span></a>
+</span><span id="Morbin-98"><a href="#Morbin-98"><span class="linenos"> 98</span></a>    <span class="nd">@shell</span><span class="o">.</span><span class="n">setter</span>
+</span><span id="Morbin-99"><a href="#Morbin-99"><span class="linenos"> 99</span></a>    <span class="k">def</span> <span class="nf">shell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">should_use</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+</span><span id="Morbin-100"><a href="#Morbin-100"><span class="linenos">100</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_shell</span> <span class="o">=</span> <span class="n">should_use</span>
+</span><span id="Morbin-101"><a href="#Morbin-101"><span class="linenos">101</span></a>
+</span><span id="Morbin-102"><a href="#Morbin-102"><span class="linenos">102</span></a>    <span class="nd">@contextmanager</span>
+</span><span id="Morbin-103"><a href="#Morbin-103"><span class="linenos">103</span></a>    <span class="k">def</span> <span class="nf">capturing_output</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="Morbin-104"><a href="#Morbin-104"><span class="linenos">104</span></a>        <span class="sd">&quot;&quot;&quot;Ensures `self.capture_output` is `True` while within the context.</span>
+</span><span id="Morbin-105"><a href="#Morbin-105"><span class="linenos">105</span></a>
+</span><span id="Morbin-106"><a href="#Morbin-106"><span class="linenos">106</span></a><span class="sd">        Upon exiting the context, `self.capture_output` will be set back to whatever it was when the context was entered.</span>
+</span><span id="Morbin-107"><a href="#Morbin-107"><span class="linenos">107</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Morbin-108"><a href="#Morbin-108"><span class="linenos">108</span></a>        <span class="n">original_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">capture_output</span>
+</span><span id="Morbin-109"><a href="#Morbin-109"><span class="linenos">109</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">capture_output</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span id="Morbin-110"><a href="#Morbin-110"><span class="linenos">110</span></a>        <span class="k">yield</span> <span class="bp">self</span>
+</span><span id="Morbin-111"><a href="#Morbin-111"><span class="linenos">111</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">capture_output</span> <span class="o">=</span> <span class="n">original_state</span>
+</span><span id="Morbin-112"><a href="#Morbin-112"><span class="linenos">112</span></a>
+</span><span id="Morbin-113"><a href="#Morbin-113"><span class="linenos">113</span></a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Output</span><span class="p">:</span>
+</span><span id="Morbin-114"><a href="#Morbin-114"><span class="linenos">114</span></a>        <span class="sd">&quot;&quot;&quot;Run this program with any number of args.</span>
+</span><span id="Morbin-115"><a href="#Morbin-115"><span class="linenos">115</span></a>
+</span><span id="Morbin-116"><a href="#Morbin-116"><span class="linenos">116</span></a><span class="sd">        Returns an `Output` object.&quot;&quot;&quot;</span>
+</span><span id="Morbin-117"><a href="#Morbin-117"><span class="linenos">117</span></a>        <span class="n">command</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">program</span><span class="p">]</span>
+</span><span id="Morbin-118"><a href="#Morbin-118"><span class="linenos">118</span></a>        <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+</span><span id="Morbin-119"><a href="#Morbin-119"><span class="linenos">119</span></a>            <span class="n">command</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">shlex</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">arg</span><span class="p">))</span>
+</span><span id="Morbin-120"><a href="#Morbin-120"><span class="linenos">120</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">capture_output</span><span class="p">:</span>
+</span><span id="Morbin-121"><a href="#Morbin-121"><span class="linenos">121</span></a>            <span class="n">output</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+</span><span id="Morbin-122"><a href="#Morbin-122"><span class="linenos">122</span></a>                <span class="n">command</span><span class="p">,</span>
+</span><span id="Morbin-123"><a href="#Morbin-123"><span class="linenos">123</span></a>                <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+</span><span id="Morbin-124"><a href="#Morbin-124"><span class="linenos">124</span></a>                <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+</span><span id="Morbin-125"><a href="#Morbin-125"><span class="linenos">125</span></a>                <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="Morbin-126"><a href="#Morbin-126"><span class="linenos">126</span></a>                <span class="n">shell</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">shell</span><span class="p">,</span>
+</span><span id="Morbin-127"><a href="#Morbin-127"><span class="linenos">127</span></a>            <span class="p">)</span>
+</span><span id="Morbin-128"><a href="#Morbin-128"><span class="linenos">128</span></a>            <span class="k">return</span> <span class="n">Output</span><span class="p">([</span><span class="n">output</span><span class="o">.</span><span class="n">returncode</span><span class="p">],</span> <span class="n">output</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">output</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+</span><span id="Morbin-129"><a href="#Morbin-129"><span class="linenos">129</span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="Morbin-130"><a href="#Morbin-130"><span class="linenos">130</span></a>            <span class="n">output</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">shell</span><span class="p">)</span>
+</span><span id="Morbin-131"><a href="#Morbin-131"><span class="linenos">131</span></a>            <span class="k">return</span> <span class="n">Output</span><span class="p">([</span><span class="n">output</span><span class="o">.</span><span class="n">returncode</span><span class="p">])</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Base class for creating python bindings for cli programs.</p>
+
+<p>At a minimum, any subclass must implement a <code><a href="#Morbin.program">program</a></code> property that returns the name used to invoke the cli.</p>
+
+<p>The <code><a href="#Morbin.run">run</a></code> function can then be used to build bindings.</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Pip</span><span class="p">(</span><span class="n">Morbin</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="nd">@property</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">def</span> <span class="nf">program</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">str</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="k">return</span> <span class="s1">&#39;pip&#39;</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">def</span> <span class="nf">install</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">package</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">Output</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;install&quot;</span><span class="p">,</span> <span class="n">package</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">def</span> <span class="nf">upgrade</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">package</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">Output</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="n">package</span><span class="p">,</span> <span class="s2">&quot;--upgrade&quot;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">def</span> <span class="nf">install_requirements</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">Output</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="s2">&quot;-r&quot;</span><span class="p">,</span> <span class="s2">&quot;requirements.txt&quot;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pip</span> <span class="o">=</span> <span class="n">Pip</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pip</span><span class="o">.</span><span class="n">upgrade</span><span class="p">(</span><span class="s2">&quot;morbin&quot;</span><span class="p">)</span>
+</code></pre>
+</div>
+</div>
+
+
+                            <div id="Morbin.__init__" class="classattr">
+                                        <input id="Morbin.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="name">Morbin</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">capture_output</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>, </span><span class="param"><span class="n">shell</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span></span>)</span>
+
+                <label class="view-source-button" for="Morbin.__init__-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Morbin.__init__"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Morbin.__init__-59"><a href="#Morbin.__init__-59"><span class="linenos">59</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">capture_output</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">shell</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+</span><span id="Morbin.__init__-60"><a href="#Morbin.__init__-60"><span class="linenos">60</span></a>        <span class="sd">&quot;&quot;&quot;Command bindings should return an `Output` object.</span>
+</span><span id="Morbin.__init__-61"><a href="#Morbin.__init__-61"><span class="linenos">61</span></a>
+</span><span id="Morbin.__init__-62"><a href="#Morbin.__init__-62"><span class="linenos">62</span></a><span class="sd">        If `capture_output` is `True` or the `capturing_output` context manager is used,</span>
+</span><span id="Morbin.__init__-63"><a href="#Morbin.__init__-63"><span class="linenos">63</span></a><span class="sd">        the command&#39;s output will be available via `Output.stdout` and `Output.stderr`.</span>
+</span><span id="Morbin.__init__-64"><a href="#Morbin.__init__-64"><span class="linenos">64</span></a>
+</span><span id="Morbin.__init__-65"><a href="#Morbin.__init__-65"><span class="linenos">65</span></a><span class="sd">        This property can be used to parse and use the command output or to simply execute commands &quot;silently&quot;.</span>
+</span><span id="Morbin.__init__-66"><a href="#Morbin.__init__-66"><span class="linenos">66</span></a>
+</span><span id="Morbin.__init__-67"><a href="#Morbin.__init__-67"><span class="linenos">67</span></a><span class="sd">        The return code will also be available via `Output.return_code`.</span>
+</span><span id="Morbin.__init__-68"><a href="#Morbin.__init__-68"><span class="linenos">68</span></a>
+</span><span id="Morbin.__init__-69"><a href="#Morbin.__init__-69"><span class="linenos">69</span></a><span class="sd">        If `shell` is `True`, commands will be executed in the system shell (necessary on Windows for builtin shell commands like `cd` and `dir`).</span>
+</span><span id="Morbin.__init__-70"><a href="#Morbin.__init__-70"><span class="linenos">70</span></a>
+</span><span id="Morbin.__init__-71"><a href="#Morbin.__init__-71"><span class="linenos">71</span></a><span class="sd">        [Security concerns using shell = True](https://docs.python.org/3/library/subprocess.html#security-considerations)</span>
+</span><span id="Morbin.__init__-72"><a href="#Morbin.__init__-72"><span class="linenos">72</span></a>
+</span><span id="Morbin.__init__-73"><a href="#Morbin.__init__-73"><span class="linenos">73</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Morbin.__init__-74"><a href="#Morbin.__init__-74"><span class="linenos">74</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">capture_output</span> <span class="o">=</span> <span class="n">capture_output</span>
+</span><span id="Morbin.__init__-75"><a href="#Morbin.__init__-75"><span class="linenos">75</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">shell</span> <span class="o">=</span> <span class="n">shell</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Command bindings should return an <code><a href="#Output">Output</a></code> object.</p>
+
+<p>If <code><a href="#Morbin.capture_output">capture_output</a></code> is <code>True</code> or the <code><a href="#Morbin.capturing_output">capturing_output</a></code> context manager is used,
+the command's output will be available via <code>Output.stdout</code> and <code>Output.stderr</code>.</p>
+
+<p>This property can be used to parse and use the command output or to simply execute commands "silently".</p>
+
+<p>The return code will also be available via <code>Output.return_code</code>.</p>
+
+<p>If <code><a href="#Morbin.shell">shell</a></code> is <code>True</code>, commands will be executed in the system shell (necessary on Windows for builtin shell commands like <code>cd</code> and <code>dir</code>).</p>
+
+<p><a href="https://docs.python.org/3/library/subprocess.html#security-considerations">Security concerns using shell = True</a></p>
+</div>
+
+
+                            </div>
+                            <div id="Morbin.capture_output" class="classattr">
+                                <div class="attr variable">
+            <span class="name">capture_output</span><span class="annotation">: bool</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Morbin.capture_output"></a>
+    
+            <div class="docstring"><p>If <code>True</code>, member functions will return the generated <code>stdout</code> as a string,
+otherwise they return the command's exit code as a string (so my type checker doesn't throw a fit about ints.).</p>
+</div>
+
+
+                            </div>
+                            <div id="Morbin.shell" class="classattr">
+                                <div class="attr variable">
+            <span class="name">shell</span><span class="annotation">: bool</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Morbin.shell"></a>
+    
+            <div class="docstring"><p>If <code>True</code>, commands will be executed in the system shell.</p>
+</div>
+
+
+                            </div>
+                            <div id="Morbin.program" class="classattr">
+                                <div class="attr variable">
+            <span class="name">program</span><span class="annotation">: str</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Morbin.program"></a>
+    
+            <div class="docstring"><p>The name used to invoke the program from the command line.</p>
+</div>
+
+
+                            </div>
+                            <div id="Morbin.capturing_output" class="classattr">
+                                        <input id="Morbin.capturing_output-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+                    <div class="decorator">@contextmanager</div>
+
+        <span class="def">def</span>
+        <span class="name">capturing_output</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">):</span></span>
+
+                <label class="view-source-button" for="Morbin.capturing_output-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Morbin.capturing_output"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Morbin.capturing_output-102"><a href="#Morbin.capturing_output-102"><span class="linenos">102</span></a>    <span class="nd">@contextmanager</span>
+</span><span id="Morbin.capturing_output-103"><a href="#Morbin.capturing_output-103"><span class="linenos">103</span></a>    <span class="k">def</span> <span class="nf">capturing_output</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="Morbin.capturing_output-104"><a href="#Morbin.capturing_output-104"><span class="linenos">104</span></a>        <span class="sd">&quot;&quot;&quot;Ensures `self.capture_output` is `True` while within the context.</span>
+</span><span id="Morbin.capturing_output-105"><a href="#Morbin.capturing_output-105"><span class="linenos">105</span></a>
+</span><span id="Morbin.capturing_output-106"><a href="#Morbin.capturing_output-106"><span class="linenos">106</span></a><span class="sd">        Upon exiting the context, `self.capture_output` will be set back to whatever it was when the context was entered.</span>
+</span><span id="Morbin.capturing_output-107"><a href="#Morbin.capturing_output-107"><span class="linenos">107</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Morbin.capturing_output-108"><a href="#Morbin.capturing_output-108"><span class="linenos">108</span></a>        <span class="n">original_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">capture_output</span>
+</span><span id="Morbin.capturing_output-109"><a href="#Morbin.capturing_output-109"><span class="linenos">109</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">capture_output</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span id="Morbin.capturing_output-110"><a href="#Morbin.capturing_output-110"><span class="linenos">110</span></a>        <span class="k">yield</span> <span class="bp">self</span>
+</span><span id="Morbin.capturing_output-111"><a href="#Morbin.capturing_output-111"><span class="linenos">111</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">capture_output</span> <span class="o">=</span> <span class="n">original_state</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Ensures <code>self.capture_output</code> is <code>True</code> while within the context.</p>
+
+<p>Upon exiting the context, <code>self.capture_output</code> will be set back to whatever it was when the context was entered.</p>
+</div>
+
+
+                            </div>
+                            <div id="Morbin.run" class="classattr">
+                                        <input id="Morbin.run-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">run</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="nb">str</span></span><span class="return-annotation">) -> <span class="n"><a href="#Output">morbin.Output</a></span>:</span></span>
+
+                <label class="view-source-button" for="Morbin.run-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Morbin.run"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Morbin.run-113"><a href="#Morbin.run-113"><span class="linenos">113</span></a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Output</span><span class="p">:</span>
+</span><span id="Morbin.run-114"><a href="#Morbin.run-114"><span class="linenos">114</span></a>        <span class="sd">&quot;&quot;&quot;Run this program with any number of args.</span>
+</span><span id="Morbin.run-115"><a href="#Morbin.run-115"><span class="linenos">115</span></a>
+</span><span id="Morbin.run-116"><a href="#Morbin.run-116"><span class="linenos">116</span></a><span class="sd">        Returns an `Output` object.&quot;&quot;&quot;</span>
+</span><span id="Morbin.run-117"><a href="#Morbin.run-117"><span class="linenos">117</span></a>        <span class="n">command</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">program</span><span class="p">]</span>
+</span><span id="Morbin.run-118"><a href="#Morbin.run-118"><span class="linenos">118</span></a>        <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+</span><span id="Morbin.run-119"><a href="#Morbin.run-119"><span class="linenos">119</span></a>            <span class="n">command</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">shlex</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">arg</span><span class="p">))</span>
+</span><span id="Morbin.run-120"><a href="#Morbin.run-120"><span class="linenos">120</span></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">capture_output</span><span class="p">:</span>
+</span><span id="Morbin.run-121"><a href="#Morbin.run-121"><span class="linenos">121</span></a>            <span class="n">output</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+</span><span id="Morbin.run-122"><a href="#Morbin.run-122"><span class="linenos">122</span></a>                <span class="n">command</span><span class="p">,</span>
+</span><span id="Morbin.run-123"><a href="#Morbin.run-123"><span class="linenos">123</span></a>                <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+</span><span id="Morbin.run-124"><a href="#Morbin.run-124"><span class="linenos">124</span></a>                <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+</span><span id="Morbin.run-125"><a href="#Morbin.run-125"><span class="linenos">125</span></a>                <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="Morbin.run-126"><a href="#Morbin.run-126"><span class="linenos">126</span></a>                <span class="n">shell</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">shell</span><span class="p">,</span>
+</span><span id="Morbin.run-127"><a href="#Morbin.run-127"><span class="linenos">127</span></a>            <span class="p">)</span>
+</span><span id="Morbin.run-128"><a href="#Morbin.run-128"><span class="linenos">128</span></a>            <span class="k">return</span> <span class="n">Output</span><span class="p">([</span><span class="n">output</span><span class="o">.</span><span class="n">returncode</span><span class="p">],</span> <span class="n">output</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">output</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+</span><span id="Morbin.run-129"><a href="#Morbin.run-129"><span class="linenos">129</span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="Morbin.run-130"><a href="#Morbin.run-130"><span class="linenos">130</span></a>            <span class="n">output</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">shell</span><span class="p">)</span>
+</span><span id="Morbin.run-131"><a href="#Morbin.run-131"><span class="linenos">131</span></a>            <span class="k">return</span> <span class="n">Output</span><span class="p">([</span><span class="n">output</span><span class="o">.</span><span class="n">returncode</span><span class="p">])</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Run this program with any number of args.</p>
+
+<p>Returns an <code><a href="#Output">Output</a></code> object.</p>
+</div>
+
+
+                            </div>
+                </section>
+                <section id="Output">
+                            <input id="Output-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+                    <div class="decorator">@dataclass</div>
+
+    <span class="def">class</span>
+    <span class="name">Output</span>:
+
+                <label class="view-source-button" for="Output-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Output"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Output-14"><a href="#Output-14"><span class="linenos">14</span></a><span class="nd">@dataclass</span>
+</span><span id="Output-15"><a href="#Output-15"><span class="linenos">15</span></a><span class="k">class</span> <span class="nc">Output</span><span class="p">:</span>
+</span><span id="Output-16"><a href="#Output-16"><span class="linenos">16</span></a>    <span class="sd">&quot;&quot;&quot;Dataclass representing the output of a terminal command.</span>
+</span><span id="Output-17"><a href="#Output-17"><span class="linenos">17</span></a>
+</span><span id="Output-18"><a href="#Output-18"><span class="linenos">18</span></a><span class="sd">    #### Fields:</span>
+</span><span id="Output-19"><a href="#Output-19"><span class="linenos">19</span></a><span class="sd">    * `return_code: list[int]`</span>
+</span><span id="Output-20"><a href="#Output-20"><span class="linenos">20</span></a><span class="sd">    * `stdout: str`</span>
+</span><span id="Output-21"><a href="#Output-21"><span class="linenos">21</span></a><span class="sd">    * `stderr: str`&quot;&quot;&quot;</span>
+</span><span id="Output-22"><a href="#Output-22"><span class="linenos">22</span></a>
+</span><span id="Output-23"><a href="#Output-23"><span class="linenos">23</span></a>    <span class="n">return_code</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+</span><span id="Output-24"><a href="#Output-24"><span class="linenos">24</span></a>    <span class="n">stdout</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="Output-25"><a href="#Output-25"><span class="linenos">25</span></a>    <span class="n">stderr</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span id="Output-26"><a href="#Output-26"><span class="linenos">26</span></a>
+</span><span id="Output-27"><a href="#Output-27"><span class="linenos">27</span></a>    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output</span><span class="p">:</span> <span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Self</span><span class="p">:</span>
+</span><span id="Output-28"><a href="#Output-28"><span class="linenos">28</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span>
+</span><span id="Output-29"><a href="#Output-29"><span class="linenos">29</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">return_code</span> <span class="o">+</span> <span class="n">output</span><span class="o">.</span><span class="n">return_code</span><span class="p">,</span>
+</span><span id="Output-30"><a href="#Output-30"><span class="linenos">30</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">stdout</span> <span class="o">+</span> <span class="n">output</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span>
+</span><span id="Output-31"><a href="#Output-31"><span class="linenos">31</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">stderr</span> <span class="o">+</span> <span class="n">output</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span>
+</span><span id="Output-32"><a href="#Output-32"><span class="linenos">32</span></a>        <span class="p">)</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Dataclass representing the output of a terminal command.</p>
+
+<h4 id="fields">Fields:</h4>
+
+<ul>
+<li><code>return_code: list[int]</code></li>
+<li><code>stdout: str</code></li>
+<li><code>stderr: str</code></li>
+</ul>
+</div>
+
+
+                            <div id="Output.__init__" class="classattr">
+                                <div class="attr function">
+            
+        <span class="name">Output</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">return_code</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>, </span><span class="param"><span class="n">stdout</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>, </span><span class="param"><span class="n">stderr</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span></span>)</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Output.__init__"></a>
+    
+    
+
+                            </div>
+                </section>
     </main>
-<script>
-    function escapeHTML(html) {
-        return document.createElement('div').appendChild(document.createTextNode(html)).parentNode.innerHTML;
-    }
-
-    const originalContent = document.querySelector("main.pdoc");
-    let currentContent = originalContent;
-
-    function setContent(innerHTML) {
-        let elem;
-        if (innerHTML) {
-            elem = document.createElement("main");
-            elem.classList.add("pdoc");
-            elem.innerHTML = innerHTML;
-        } else {
-            elem = originalContent;
-        }
-        if (currentContent !== elem) {
-            currentContent.replaceWith(elem);
-            currentContent = elem;
-        }
-    }
-
-    function getSearchTerm() {
-        return (new URL(window.location)).searchParams.get("search");
-    }
-
-    const searchBox = document.querySelector(".pdoc input[type=search]");
-    searchBox.addEventListener("input", function () {
-        let url = new URL(window.location);
-        if (searchBox.value.trim()) {
-            url.hash = "";
-            url.searchParams.set("search", searchBox.value);
-        } else {
-            url.searchParams.delete("search");
-        }
-        history.replaceState("", "", url.toString());
-        onInput();
-    });
-    window.addEventListener("popstate", onInput);
-
-
-    let search, searchErr;
-
-    async function initialize() {
-        try {
-            search = await new Promise((resolve, reject) => {
-                const script = document.createElement("script");
-                script.type = "text/javascript";
-                script.async = true;
-                script.onload = () => resolve(window.pdocSearch);
-                script.onerror = (e) => reject(e);
-                script.src = "search.js";
-                document.getElementsByTagName("head")[0].appendChild(script);
-            });
-        } catch (e) {
-            console.error("Cannot fetch pdoc search index");
-            searchErr = "Cannot fetch search index.";
-        }
-        onInput();
-
-        document.querySelector("nav.pdoc").addEventListener("click", e => {
-            if (e.target.hash) {
-                searchBox.value = "";
-                searchBox.dispatchEvent(new Event("input"));
-            }
-        });
-    }
-
-    function onInput() {
-        setContent((() => {
-            const term = getSearchTerm();
-            if (!term) {
-                return null
-            }
-            if (searchErr) {
-                return `<h3>Error: ${searchErr}</h3>`
-            }
-            if (!search) {
-                return "<h3>Searching...</h3>"
-            }
-
-            window.scrollTo({top: 0, left: 0, behavior: 'auto'});
-
-            const results = search(term);
-
-            let html;
-            if (results.length === 0) {
-                html = `No search results for '${escapeHTML(term)}'.`
-            } else {
-                html = `<h4>${results.length} search result${results.length > 1 ? "s" : ""} for '${escapeHTML(term)}'.</h4>`;
-            }
-            for (let result of results.slice(0, 10)) {
-                let doc = result.doc;
-                let url = `${doc.modulename.replaceAll(".", "/")}.html`;
-                if (doc.qualname) {
-                    url += `#${doc.qualname}`;
-                }
-
-                let heading;
-                switch (result.doc.kind) {
-                    case "function":
-                        if (doc.fullname.endsWith(".__init__")) {
-                            heading = `<span class="name">${doc.fullname.replace(/\.__init__$/, "")}</span>${doc.signature}`;
-                        } else {
-                            heading = `<span class="def">${doc.funcdef}</span> <span class="name">${doc.fullname}</span>${doc.signature}`;
-                        }
-                        break;
-                    case "class":
-                        heading = `<span class="def">class</span> <span class="name">${doc.fullname}</span>`;
-                        if (doc.bases)
-                            heading += `<wbr>(<span class="base">${doc.bases}</span>)`;
-                        heading += `:`;
-                        break;
-                    case "variable":
-                        heading = `<span class="name">${doc.fullname}</span>`;
-                        if (doc.annotation)
-                            heading += `<span class="annotation">${doc.annotation}</span>`;
-                        if (doc.default_value)
-                            heading += `<span class="default_value">${doc.default_value}</span>`;
-                        break;
-                    default:
-                        heading = `<span class="name">${doc.fullname}</span>`;
-                        break;
-                }
-                html += `
-                        <section class="search-result">
-                        <a href="${url}" class="attr ${doc.kind}">${heading}</a>
-                        <div class="docstring">${doc.doc}</div>
-                        </section>
-                    `;
-
-            }
-            return html;
-        })());
-    }
-
-    if (getSearchTerm()) {
-        initialize();
-        searchBox.value = getSearchTerm();
-        onInput();
-    } else {
-        searchBox.addEventListener("focus", initialize, {once: true});
-    }
-
-    searchBox.addEventListener("keydown", e => {
-        if (["ArrowDown", "ArrowUp", "Enter"].includes(e.key)) {
-            let focused = currentContent.querySelector(".search-result.focused");
-            if (!focused) {
-                currentContent.querySelector(".search-result").classList.add("focused");
-            } else if (
-                e.key === "ArrowDown"
-                && focused.nextElementSibling
-                && focused.nextElementSibling.classList.contains("search-result")
-            ) {
-                focused.classList.remove("focused");
-                focused.nextElementSibling.classList.add("focused");
-                focused.nextElementSibling.scrollIntoView({
-                    behavior: "smooth",
-                    block: "nearest",
-                    inline: "nearest"
-                });
-            } else if (
-                e.key === "ArrowUp"
-                && focused.previousElementSibling
-                && focused.previousElementSibling.classList.contains("search-result")
-            ) {
-                focused.classList.remove("focused");
-                focused.previousElementSibling.classList.add("focused");
-                focused.previousElementSibling.scrollIntoView({
-                    behavior: "smooth",
-                    block: "nearest",
-                    inline: "nearest"
-                });
-            } else if (
-                e.key === "Enter"
-            ) {
-                focused.querySelector("a").click();
-            }
-        }
-    });
-</script></body>
+</body>
 </html>

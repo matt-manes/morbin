@@ -1,7 +1,7 @@
 [project]
 name = "morbin"
 description = "Base class for creating modules that are bindings for command line tools."
-version = "1.0.0"
+version = "1.0.1"
 dependencies = ["pathier", "typing_extensions"]
 readme = "README.md"
 keywords = ["cli", "terminal", "binding", "bindings", "morbius", "morbin", "morph"]
@@ -26,7 +26,7 @@ addopts = ["--import-mode=importlib"]
 pythonpath = "src"
 
 [tool.hatch.build.targets.sdist]
-exclude = [".coverage", ".pytest_cache", ".vscode", "tests", "htmlcov","docs","*.md"]
+exclude = [".coverage", ".pytest_cache", ".vscode", "tests", "htmlcov", "docs", "*.md"]
 
 [build-system]
 requires = ["hatchling"]
